@@ -23,7 +23,6 @@ public class Team {
   private int teamId;
   private String teamName;
 
-  @OneToMany(mappedBy = "team")
-  @JsonIgnore
+  @OneToMany(mappedBy = "team",cascade = CascadeType.ALL)
   private List<Player> players;
 }

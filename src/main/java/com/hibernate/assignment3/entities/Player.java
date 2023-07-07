@@ -23,5 +23,7 @@ public class Player {
 
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "team_id")
+
+  @JsonIgnore
   private Team team;
 }
