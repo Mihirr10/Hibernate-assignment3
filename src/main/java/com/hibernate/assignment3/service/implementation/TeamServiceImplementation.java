@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @Service
 public class TeamServiceImplementation implements TeamService {
@@ -22,6 +23,7 @@ public class TeamServiceImplementation implements TeamService {
   PlayerRepository playerRepository;
 
   @Override
+  @Transactional
   public List<Team> getAllTeams() {
     return teamRepository.findAll();
   }
@@ -31,6 +33,7 @@ public class TeamServiceImplementation implements TeamService {
 //  }
 
   @Override
+  @Transactional
   public Team getTeamWithId(int id) {
     Optional<Team> team = teamRepository.findById(id);
 
@@ -42,9 +45,8 @@ public class TeamServiceImplementation implements TeamService {
   }
 
   @Override
-  @Transactional
-  public Team createTeam(Team team) {
 
+  public Team createTeam(Team team) {
     if (team != null) {
 
       team.getPlayers().forEach(player -> playerRepository.save(player));
@@ -61,6 +63,7 @@ public class TeamServiceImplementation implements TeamService {
   }
 
   @Override
+  @Transactional
   public Team updateTeam(Team team, int id) {
 
     Team team1 = teamRepository.findById(id).orElse(null);
@@ -73,6 +76,7 @@ public class TeamServiceImplementation implements TeamService {
   }
 
   @Override
+  @Transactional
   public void deleteTeam(int id) {
     Optional<Team> team = teamRepository.findById(id);
 

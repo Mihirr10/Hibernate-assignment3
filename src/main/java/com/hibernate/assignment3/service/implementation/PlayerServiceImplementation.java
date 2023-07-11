@@ -7,6 +7,9 @@ import com.hibernate.assignment3.repository.PlayerRepository;
 import com.hibernate.assignment3.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,10 +36,16 @@ public class PlayerServiceImplementation implements PlayerService {
 //  }
 
 
+
+
+  @Override
+  @Transactional(isolation = Isolation.READ_COMMITTED)
   public List<Player> getAllPlayers() {
     return playerRepository.findAll();
   }
 
+  @Override
+  @Transactional(isolation = Isolation.READ_COMMITTED)
   public Player getPlayerWithId(int id) {
 
     Optional<Player> player = playerRepository.findById(id);
@@ -49,6 +58,7 @@ public class PlayerServiceImplementation implements PlayerService {
   }
 
   @Override
+  @Transactional(isolation = Isolation.READ_COMMITTED)
   public Player createPlayer(Player player) {
 
     if (player != null) {
@@ -59,6 +69,7 @@ public class PlayerServiceImplementation implements PlayerService {
   }
 
   @Override
+  @Transactional(isolation = Isolation.SERIALIZABLE)
   public Player updatePlayer(Player player, int id) {
     Player player1 = playerRepository.findById(id).orElse(null);
 
@@ -72,6 +83,7 @@ public class PlayerServiceImplementation implements PlayerService {
   }
 
   @Override
+  @Transactional(isolation = Isolation.REPEATABLE_READ)
   public void deletePlayer(int id) {
     Optional<Player> player2 = playerRepository.findById(id);
 

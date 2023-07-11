@@ -1,6 +1,7 @@
 package com.hibernate.assignment3.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,6 @@ public class Player {
 
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "team_id")
-
   @JsonIgnore
   private Team team;
 }
